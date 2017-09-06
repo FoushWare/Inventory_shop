@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">Inventory App</string>
+    <string name="app_name">Inventory Shop</string>
+    <!--Editor activity action-save -->
+    <string name="action_save">save</string>
+    <!--Editor activity action-Delete -->
+    <string name="action_delete">delete</string>
+    <string name="action_increase">increase</string>
+    <string name="action_decrease">decrease</string>
+    <string name="category_overview">category overview</string>
+    <string name="item_name">item name</string>
+    <!--item_quantity-->
+    <string name="item_quantity">current quantity</string>
+    <!---supplier-->
+    <string name="supplier">supplier</string>
+    <!--contact  to the supplier for more items-->
+    <string name="contact">contact</string>
+    <!--price of the item-->
+    <string name="price">price</string>
+    <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
+    <!--label of the EditorActivity when enter new item-->
+    <string name="new_item">add item</string>
+    <!--label of the EditorActivity when editing exist item-->
+    <string name="edit_item">Edit item</string>
+    <string name="empty_view_title_text">It\'s a bit lonely here...</string>
+    <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Get started by adding item</string>
+    <!--success message when inter new item from EditorActivity-->
+    <string name="Editor_success">item saved</string>
+    <!--fail message when inter new item from EditorActivity-->
+    <string name="Editor_fail">item  not saved</string>
+
 </resources>

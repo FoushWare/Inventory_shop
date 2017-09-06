@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
     package="com.example.tom.inventoryapp">
 
     <application
@@ -16,6 +17,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".EditorActivity"
+                  android:label="@string/new_item"
+                  android:parentActivityName=".CatalogActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CatalogActivity" />
+
+        </activity>
+        <provider
+            android:authorities="com.example.tom.inventoryapp"
+            android:name=".data.ItemProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

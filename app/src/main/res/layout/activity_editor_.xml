@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Layout for the editor activity-->
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_margin"
+        tools:context=".EditorActivity">
+<!--overview category-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+    >
+        <TextView
+            android:text="@string/category_overview"
+            style="@style/Editor_label"
+
+        />
+        <!--input fields-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingLeft="4dp"
+            android:orientation="vertical"
+        >
+            <!--name field-->
+            <EditText
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/item_name"
+                android:padding="16dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="sans-serif-medium"
+
+             />
+             <EditText
+                 android:id="@+id/item_quantity"
+                 android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/item_quantity"
+                android:padding="16dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="sans-serif-medium"
+
+             />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--quantity increase or decrease-->
+        <TextView
+            android:text="quantity"
+            style="@style/Editor_label"
+
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+"
+            android:layout_margin="3dp"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:layout_margin="3dp"
+            />
+
+    </LinearLayout>
+
+    <!--supplier-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/Editor_label"
+            android:text="@string/supplier"
+       />
+        <EditText
+            android:id="@+id/item_supplier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/supplier"
+            android:textAppearance="?android:textAppearanceSmall"
+            />
+    </LinearLayout>
+    <!--price-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        >
+        <TextView
+            style="@style/Editor_label"
+            android:text="price"
+
+            />
+      <EditText
+                android:id="@+id/item_price"
+                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="@string/price"
+                android:padding="16dp"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="sans-serif-medium"
+
+             />
+    </LinearLayout>
+
+<!--supplier contact-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+        <TextView
+            style="@style/Editor_label"
+            android:text="order More..."
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/contact"
+            android:textAppearance="?android:textAppearanceSmall"
+
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_delete_black_36dp"
+            />
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
