@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".CatalogActivity"
-        android:layout_margin="@dimen/activity_margin"
+        android:layout_margin="5dp"
     >
     <ListView
         android:id="@+id/list"

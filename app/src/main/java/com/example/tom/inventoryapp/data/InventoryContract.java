@@ -11,32 +11,41 @@ import android.provider.BaseColumns;
 public final class InventoryContract {
     //make it private to prevent someone from instantiating  it accidentally cause it's constant
 
-    /**content Authority like domain name*/
-    public static final String CONTENT_AUTHORITY="com.example.tom.inventoryapp";
-    public static final Uri BASE_CONTENT_URI=Uri.parse("content://"+CONTENT_AUTHORITY);
-    public static final String PATH_ITEM="items";
+    /**
+     * content Authority like domain name
+     */
+    public static final String CONTENT_AUTHORITY = "com.example.tom.inventoryapp";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    public static final String PATH_ITEM = "items";
 
 
+    private InventoryContract() {
+    }
 
-    private InventoryContract(){}
-    public static final class ItemEntry implements BaseColumns{
-        /**Table name items*/
-            public static final String TABLE_NAME="items";
-       /**Table Columns**/
+    public static final class ItemEntry implements BaseColumns {
+        /**
+         * Table name items
+         */
+        public static final String TABLE_NAME = "items";
+        /**
+         * Table Columns
+         **/
 
                 /*unique id for each row only used in the database*/
-            public static final  String ID=BaseColumns._ID;
-                /*name of the item*/
-           public static final String Column_Item_name="name";
-                /*quantity  of  current item */
-           public static final String Column_Item_quantity="quantity";
-                /*supplier  of  current item */
-            public static final String Column_Item_supplier="supplier";
-                /*price  of  current item */
-            public static final String Column_Item_price="price";
+        public static final String ID = BaseColumns._ID;
+        /*name of the item*/
+        public static final String Column_Item_name = "name";
+        /*quantity  of  current item */
+        public static final String Column_Item_quantity = "quantity";
+        /*supplier  of  current item */
+        public static final String Column_Item_supplier = "supplier";
+        /*price  of  current item */
+        public static final String Column_Item_price = "price";
 
-        /**make the content uri*/
-        public static final Uri CONTENT_URI=Uri.withAppendedPath(BASE_CONTENT_URI,PATH_ITEM);
+        /**
+         * make the content uri
+         */
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_ITEM);
 
 
         /**
@@ -52,9 +61,7 @@ public final class InventoryContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_ITEM;
 
 
-
     }
-
 
 
 }
