@@ -90,7 +90,8 @@ public class CatalogActivity extends AppCompatActivity
                 ItemEntry.Column_Item_name,
                 ItemEntry.Column_Item_quantity,
                 ItemEntry.Column_Item_price,
-                ItemEntry.Column_Item_supplier
+                ItemEntry.Column_Item_supplier,
+                ItemEntry.Column_Item_img
         };
         return new CursorLoader(this,                 //parent activity
                 ItemEntry.CONTENT_URI,                 //uri of the table

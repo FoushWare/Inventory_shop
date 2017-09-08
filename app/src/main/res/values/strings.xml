@@ -12,8 +12,8 @@
     <string name="item_quantity">current quantity</string>
     <!---supplier-->
     <string name="supplier">supplier</string>
-    <!--contact  to the supplier for more items-->
-    <string name="contact">contact</string>
+    <!--select img for the item-->
+    <string name="select_img">select Image</string>
     <!--price of the item-->
     <string name="price">price</string>
     <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
@@ -53,5 +53,9 @@
 
        <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
         <string name="cancel">Cancel</string>
+    <!--supplier Emai-->
+    <string name="supplier_emai">Supplier@gmail.com</string>
+    <!--select picture-->
+   <string name="select_picture">select picture</string>
 
 </resources>

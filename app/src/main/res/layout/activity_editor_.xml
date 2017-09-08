@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--Layout for the editor activity-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -35,6 +38,31 @@
                 android:textAppearance="?android:textAppearanceSmall"
 
                 />
+                <!--price-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin">
+
+        <TextView
+            style="@style/Editor_label"
+            android:text="price"
+
+            />
+
+        <EditText
+            android:id="@+id/item_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="sans-serif-medium"
+            android:hint="@string/price"
+            android:inputType="number"
+            android:padding="16dp"
+            android:textAppearance="?android:textAppearanceSmall"
+
+            />
+    </LinearLayout>
 
             <EditText
                 android:id="@+id/item_quantity"
@@ -97,51 +125,49 @@
             android:hint="@string/supplier"
             android:textAppearance="?android:textAppearanceSmall" />
     </LinearLayout>
-    <!--price-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin">
-
-        <TextView
-            style="@style/Editor_label"
-            android:text="price"
-
-            />
-
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        >
         <EditText
-            android:id="@+id/item_price"
-            android:layout_width="0dp"
+            android:id="@+id/supplier_mail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:fontFamily="sans-serif-medium"
-            android:hint="@string/price"
-            android:inputType="number"
-            android:padding="16dp"
-            android:textAppearance="?android:textAppearanceSmall"
-
+            android:hint="@string/supplier_emai"
             />
     </LinearLayout>
 
-    <!--supplier contact-->
+
+    <!--item image button-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
-
-        <TextView
-            style="@style/Editor_label"
-            android:text="order More..." />
-
         <Button
-            android:layout_width="0dp"
+            android:id="@+id/editor_item_image_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/contact"
+            android:text="@string/select_img"
             android:textAppearance="?android:textAppearanceSmall"
+            />
+    </LinearLayout>
+  <!--item image-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:id="@+id/editor_item_image_view"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="60dp"
+            android:layout_height="100dp"
 
             />
     </LinearLayout>
 
-
 </LinearLayout>
+    </ScrollView>

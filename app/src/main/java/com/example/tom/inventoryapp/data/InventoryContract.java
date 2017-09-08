@@ -41,6 +41,8 @@ public final class InventoryContract {
         public static final String Column_Item_supplier = "supplier";
         /*price  of  current item */
         public static final String Column_Item_price = "price";
+        /*picture of the item*/
+        public static final String Column_Item_img="image";
 
         /**
          * make the content uri

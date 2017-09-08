@@ -7,8 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.tom.inventoryapp.data.InventoryContract.ItemEntry;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -42,7 +51,16 @@ public class EditorActivity extends AppCompatActivity implements
     private Uri mCurrentUri;
     /*variable to indict if there was change in the Editing the current clicked Item*/
     private boolean mItemHasChanged = false;
-
+    /*button for select image from the gallery*/
+    private Button mEditor_Img_Button;
+    /*constant for the gallery*/
+    private final static int GALLERY_INTENT_CALLED=50;
+    private final static int GALLERY_KITKAT_INTENT_CALLED=60;
+    private ImageView mEditor_item_Img_view;
+    /*image as byteArray value*/
+     public static byte[] image_byte;
+    /*image as bitmap*/
+     public static Bitmap bitmap ;
     /**
      * make listener for touch of the EditText to indict if there was any change
      */
@@ -53,7 +71,43 @@ public class EditorActivity extends AppCompatActivity implements
             return false;
         }
     };
+    private View.OnClickListener mClickListener= new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mItemHasChanged=true;
+        }
+    };
 
+//When this Activity resumed after the image selected from the gallery
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+       /*Get  the images from Gallery and put it in the DB   Then view it in the Activities*/
+
+       if( (resultCode== GALLERY_INTENT_CALLED||requestCode==GALLERY_KITKAT_INTENT_CALLED)
+          && resultCode==RESULT_OK && data!=null && data.getData() !=null
+               ){
+           Uri uri = data.getData();
+
+           try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+               // Log.d(TAG, String.valueOf(bitmap));
+
+               ImageView imageView = (ImageView) findViewById(R.id.editor_item_image_view);
+               imageView.setImageBitmap(bitmap);
+              //convert the bitmap image to arrayByte[blob] to store it in db
+                    image_byte=getBytes(bitmap);
+
+
+
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
+       }//End of if
+
+    }//End of onActionResult() Method
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +134,47 @@ public class EditorActivity extends AppCompatActivity implements
         mQuantityEditText = (EditText) findViewById(R.id.item_quantity);
         mPriceEditText = (EditText) findViewById(R.id.item_price);
         mSupplierEditText = (EditText) findViewById(R.id.item_supplier);
-        // Setup OnTouchListeners on all the input fields, so we can determine if the user
-        // has touched or modified them. This will let us know if there are unsaved changes
-        // or not, if the user tries to leave the editor without saving.
+        mEditor_Img_Button=(Button)findViewById(R.id.editor_item_image_button);
+        mEditor_item_Img_view=(ImageView)findViewById(R.id.editor_item_image_view);
+
+
+        /** Setup OnTouchListeners on all the input fields, so we can determine if the user
+         has touched or modified them. This will let us know if there are unsaved changes
+         or not, if the user tries to leave the editor without saving.*/
         mNameEditText.setOnTouchListener(mTouchListener);
         mQuantityEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
         mSupplierEditText.setOnTouchListener(mTouchListener);
+        mEditor_Img_Button.setOnClickListener(mClickListener);
 
+        /**
+         * listen to the click of button select image
+         *
+         * */
+        mEditor_Img_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//This code for solve mistake if i need the path of the image
+                if (Build.VERSION.SDK_INT <19){
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_picture)),GALLERY_INTENT_CALLED);
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
+                }
+                }
 
+        });
     }
+
+
+
+
+
 
     //inflate the menu of EditorActivity
     @Override
@@ -163,6 +248,7 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(ItemEntry.Column_Item_quantity, Quantity);
         values.put(ItemEntry.Column_Item_price, price);
         values.put(ItemEntry.Column_Item_supplier, mSupplierStringEditText);
+        values.put(ItemEntry.Column_Item_img,image_byte);
 
         if (mCurrentUri == null) {
 
@@ -189,6 +275,10 @@ public class EditorActivity extends AppCompatActivity implements
             }
         }
     }
+
+
+
+
 
 
     @Override
@@ -227,6 +317,7 @@ public class EditorActivity extends AppCompatActivity implements
                 ItemEntry.Column_Item_price,
                 ItemEntry.Column_Item_quantity,
                 ItemEntry.Column_Item_supplier,
+                ItemEntry.Column_Item_img
         };
         return new CursorLoader(this,     //parent view
                 mCurrentUri,
@@ -254,18 +345,21 @@ public class EditorActivity extends AppCompatActivity implements
             int Column_Index_Price = cursor.getColumnIndex(ItemEntry.Column_Item_price);
             int Column_Index_Supplier = cursor.getColumnIndex(ItemEntry.Column_Item_supplier);
             int Column_Index_Quantity = cursor.getColumnIndex(ItemEntry.Column_Item_quantity);
+            int Column_Index_Img=cursor.getColumnIndex(ItemEntry.Column_Item_img);
 
             /**Get the cursor content as key And values for the name,quantity,price,supplier*/
             String Column_Name_String = cursor.getString(Column_Index_Name);
             String Column_Supplier_String = cursor.getString(Column_Index_Supplier);
             int Column_price = cursor.getInt(Column_Index_Price);
             int Column_Quantity = cursor.getInt(Column_Index_Quantity);
+            byte[] image=cursor.getBlob(Column_Index_Img);
 
             /**Set the fields with the corresponding view*/
             mNameEditText.setText(Column_Name_String);
             mPriceEditText.setText(Integer.toString(Column_price));
             mQuantityEditText.setText(Integer.toString(Column_Quantity));
             mSupplierEditText.setText(Column_Supplier_String);
+            mEditor_item_Img_view.setImageBitmap(getImage(image));
 
 
         }
@@ -278,6 +372,7 @@ public class EditorActivity extends AppCompatActivity implements
         mSupplierEditText.setText("");
         mNameEditText.setText("");
         mPriceEditText.setText("");
+        mEditor_item_Img_view.setImageBitmap(null);
     }
 
     /**
@@ -384,6 +479,25 @@ public class EditorActivity extends AppCompatActivity implements
         // Close the activity
         finish();
     }
+
+
+   /**Method to handle convert from bitmap to byteArray[blob] and VS*/
+
+   public static byte[] getBytes(Bitmap bitmap) {
+       ByteArrayOutputStream stream = new ByteArrayOutputStream();
+       bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+       return stream.toByteArray();
+   }
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+
+
+
+
+
+
 
 
 }//End of Activity
