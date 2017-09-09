@@ -46,7 +46,7 @@
 
 ![picture alt](https://i.imgur.com/HbEcNtT.png)
 
-####Edit the item
+#### Edit the item
 
 ![picture alt](https://i.imgur.com/9ih8X4u.png)
 
