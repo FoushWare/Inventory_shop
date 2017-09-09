@@ -31,7 +31,7 @@
     * Current quantity
     * Price
     * Button to Reduce quantity by one {no negative value}
-![picture alt](https://photos.google.com/photo/AF1QipOxXxgZbh_2FkYpAh-9rLT0Pr1tUbDmPKIdIx6A?hl=ar"Title is optional")
+ ![picture alt](https://i.imgur.com/5bKqtHP.png"Title is optional")
 
 
 ### Detail layout [Sub_Activity]
@@ -43,9 +43,9 @@
     * Button + Button - To increase and decrease the quantity
     * Button Delete to delete the item
 
-![picture alt](https://photos.google.com/photo/AF1QipOb9Wvy5Z-NRRb7fCSpYhlvWARGe9WHoDv-LhGk?hl=ar"Title is optional")
+![picture alt](https://i.imgur.com/HbEcNtT.png"Title is optional")
 
-![picture alt](https://photos.google.com/photo/AF1QipOu_-4vw0JtP9-0ka4KqNsrEEGpnD5A6Rvt2QnS?hl=ar"Title is optional")
+![picture alt](https://i.imgur.com/9ih8X4u.png"Title is optional")
 
 ### Functionality
 
