@@ -54,8 +54,13 @@
        <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
         <string name="cancel">Cancel</string>
     <!--supplier Emai-->
-    <string name="supplier_emai">Supplier@gmail.com</string>
+    <string name="supplier_email">Supplier@gmail.com</string>
     <!--select picture-->
    <string name="select_picture">select picture</string>
+    <!--compose button-->
+    <string name="compose_button">compose "  "</string>
+    <!--Email validation for asking supplier for more of the item-->
+    <string name="Email_validation">Email can \'t be empty</string>
+    <string name="Extra_validation">Extra item number can \'t be empty</string>
 
 </resources>

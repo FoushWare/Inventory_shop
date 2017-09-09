@@ -61,6 +61,15 @@ public class EditorActivity extends AppCompatActivity implements
      public static byte[] image_byte;
     /*image as bitmap*/
      public static Bitmap bitmap ;
+    /*increase and decrease button to update the value of the current_quantity of the item */
+    private Button mIncrease_button;
+    private Button mDecrease_button;
+    /*compose button to send message to the supplier to order more item*/
+    private Button mCompose;
+    /*Extra number of item to ask supplier to supply me with */
+    private EditText mExtra_Item;
+    /*supplier Email*/
+    private EditText mSupplier_Email;
     /**
      * make listener for touch of the EditText to indict if there was any change
      */
@@ -136,6 +145,11 @@ public class EditorActivity extends AppCompatActivity implements
         mSupplierEditText = (EditText) findViewById(R.id.item_supplier);
         mEditor_Img_Button=(Button)findViewById(R.id.editor_item_image_button);
         mEditor_item_Img_view=(ImageView)findViewById(R.id.editor_item_image_view);
+        mIncrease_button=(Button)findViewById(R.id.button_increase);
+        mDecrease_button=(Button)findViewById(R.id.button_decrease);
+        mCompose=(Button)findViewById(R.id.compose);
+        mExtra_Item=(EditText)findViewById(R.id.Extra_item);
+        mSupplier_Email=(EditText)findViewById(R.id.supplier_email);
 
 
         /** Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -146,6 +160,8 @@ public class EditorActivity extends AppCompatActivity implements
         mPriceEditText.setOnTouchListener(mTouchListener);
         mSupplierEditText.setOnTouchListener(mTouchListener);
         mEditor_Img_Button.setOnClickListener(mClickListener);
+        mIncrease_button.setOnClickListener(mClickListener);
+        mDecrease_button.setOnClickListener(mClickListener);
 
         /**
          * listen to the click of button select image
@@ -169,6 +185,90 @@ public class EditorActivity extends AppCompatActivity implements
                 }
 
         });
+
+//increase the quantity if + button is clicked
+        mIncrease_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentQuantity=mQuantityEditText.getText().toString();
+                //get the value in the EditorText of current_quantity if it's empty make it one
+                if(currentQuantity.isEmpty()){
+                    mQuantityEditText.setText("1");
+                }else {//if not empty
+
+                    int quantityInt=Integer.parseInt(currentQuantity);
+
+                   if(quantityInt<0){//quantity is negative
+                       mQuantityEditText.setText("1");
+                   }else {
+                       ++quantityInt;
+                       String quantityString=Integer.toString(quantityInt);
+                       mQuantityEditText.setText(quantityString);
+                   }
+
+                }
+
+            }
+        });
+        //decrease the quantity if - button is clicked
+        mDecrease_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentQuantity=mQuantityEditText.getText().toString();
+                //get the value in the EditorText of current_quantity if it's empty make it one
+                if(currentQuantity.isEmpty()){
+                    mQuantityEditText.setText("0");
+                }else {//if not empty
+
+                    int quantityInt=Integer.parseInt(currentQuantity);
+
+                   if(quantityInt<=0){//quantity is negative
+                       mQuantityEditText.setText("0");
+                   } else {
+                       --quantityInt;
+                       String quantityString=Integer.toString(quantityInt);
+                       mQuantityEditText.setText(quantityString);
+                   }
+
+                }
+
+            }
+        });
+
+       /*send Email intent to supplier to order more item */
+       mCompose.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent=new Intent(Intent.ACTION_SEND);
+               intent.setType("text/plain");
+               String Email=mSupplier_Email.getText().toString();
+               String Extra=mExtra_Item.getText().toString();
+              if(Email.isEmpty()){
+                 Toast.makeText(EditorActivity.this,getString(R.string.Email_validation),Toast.LENGTH_LONG).show();
+                  return;
+              }
+              if(Extra.isEmpty()){
+                 Toast.makeText(EditorActivity.this,getString(R.string.Extra_validation),Toast.LENGTH_LONG).show();
+                  return;
+              }
+              if(mNameEditText.getText().toString().isEmpty()){
+                  mNameEditText.setText("your product");
+              }
+
+               intent.putExtra(Intent.EXTRA_EMAIL,Email);
+
+               intent.putExtra(Intent.EXTRA_SUBJECT,"order more from "+mNameEditText.getText());
+
+               intent.putExtra(Intent.EXTRA_TEXT,"I want "+Extra+" of item please");
+
+               startActivity(Intent.createChooser(intent,"Send Email"));
+
+
+           }
+       });
+
+
+
     }
 
 
