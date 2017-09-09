@@ -31,6 +31,7 @@
     * Current quantity
     * Price
     * Button to Reduce quantity by one {no negative value}
+
  ![picture alt](https://i.imgur.com/5bKqtHP.png)
 
 
@@ -44,6 +45,8 @@
     * Button Delete to delete the item
 
 ![picture alt](https://i.imgur.com/HbEcNtT.png)
+
+####Edit the item
 
 ![picture alt](https://i.imgur.com/9ih8X4u.png)
 
