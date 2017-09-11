@@ -35,17 +35,17 @@ public class ItemCursorAdapter extends CursorAdapter {
         TextView name = (TextView) view.findViewById(R.id.name);
         TextView quantity = (TextView) view.findViewById(R.id.quantity);
         TextView price = (TextView) view.findViewById(R.id.price);
-        ImageView Img=(ImageView)view.findViewById(R.id.catalog_item_image);
+        ImageView Img = (ImageView) view.findViewById(R.id.catalog_item_image);
         /*find the columns that represent these fields */
         int ColumnName = cursor.getColumnIndex(ItemEntry.Column_Item_name);
         int ColumnQuanity = cursor.getColumnIndex(ItemEntry.Column_Item_quantity);
         int ColumnPrice = cursor.getColumnIndex(ItemEntry.Column_Item_price);
-        int ColumnImg=cursor.getColumnIndex(ItemEntry.Column_Item_img);
+        int ColumnImg = cursor.getColumnIndex(ItemEntry.Column_Item_img);
         /*Read the values from the cursor*/
         String getName = cursor.getString(ColumnName);
         int getQuantity = cursor.getInt(ColumnQuanity);
         int getPrice = cursor.getInt(ColumnPrice);
-        byte[] image=cursor.getBlob(ColumnImg);
+        byte[] image = cursor.getBlob(ColumnImg);
         /*set the corresponding view with there values*/
         name.setText(getName);
         quantity.setText(Integer.toString(getQuantity));

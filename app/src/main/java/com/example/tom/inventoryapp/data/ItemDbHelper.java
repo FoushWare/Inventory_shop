@@ -35,7 +35,7 @@ public class ItemDbHelper extends SQLiteOpenHelper {
                 ItemEntry.Column_Item_quantity + " INTEGER NOT NULL ," +
                 ItemEntry.Column_Item_price + " INTEGER NOT NULL ," +
                 ItemEntry.Column_Item_supplier + " TEXT NOT NULL ," +
-                ItemEntry.Column_Item_img      +" BLOB NOT NULL"+ " )";
+                ItemEntry.Column_Item_img + " BLOB NOT NULL" + " )";
         /**Execute the table*/
         db.execSQL(SQL_CREATE_ITEMS_TABLE);
     }

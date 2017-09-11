@@ -42,7 +42,7 @@ public final class InventoryContract {
         /*price  of  current item */
         public static final String Column_Item_price = "price";
         /*picture of the item*/
-        public static final String Column_Item_img="image";
+        public static final String Column_Item_img = "image";
 
         /**
          * make the content uri

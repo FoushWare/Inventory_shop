@@ -54,13 +54,13 @@ public class EditorActivity extends AppCompatActivity implements
     /*button for select image from the gallery*/
     private Button mEditor_Img_Button;
     /*constant for the gallery*/
-    private final static int GALLERY_INTENT_CALLED=50;
-    private final static int GALLERY_KITKAT_INTENT_CALLED=60;
+    private final static int GALLERY_INTENT_CALLED = 50;
+    private final static int GALLERY_KITKAT_INTENT_CALLED = 60;
     private ImageView mEditor_item_Img_view;
     /*image as byteArray value*/
-     public static byte[] image_byte;
+    public static byte[] image_byte;
     /*image as bitmap*/
-     public static Bitmap bitmap ;
+    public static Bitmap bitmap;
     /*increase and decrease button to update the value of the current_quantity of the item */
     private Button mIncrease_button;
     private Button mDecrease_button;
@@ -80,41 +80,40 @@ public class EditorActivity extends AppCompatActivity implements
             return false;
         }
     };
-    private View.OnClickListener mClickListener= new View.OnClickListener() {
+    private View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mItemHasChanged=true;
+            mItemHasChanged = true;
         }
     };
 
-//When this Activity resumed after the image selected from the gallery
+    //When this Activity resumed after the image selected from the gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
        /*Get  the images from Gallery and put it in the DB   Then view it in the Activities*/
 
-       if( (resultCode== GALLERY_INTENT_CALLED||requestCode==GALLERY_KITKAT_INTENT_CALLED)
-          && resultCode==RESULT_OK && data!=null && data.getData() !=null
-               ){
-           Uri uri = data.getData();
+        if ((resultCode == GALLERY_INTENT_CALLED || requestCode == GALLERY_KITKAT_INTENT_CALLED)
+                && resultCode == RESULT_OK && data != null && data.getData() != null
+                ) {
+            Uri uri = data.getData();
 
-           try {
+            try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-               // Log.d(TAG, String.valueOf(bitmap));
+                // Log.d(TAG, String.valueOf(bitmap));
 
-               ImageView imageView = (ImageView) findViewById(R.id.editor_item_image_view);
-               imageView.setImageBitmap(bitmap);
-              //convert the bitmap image to arrayByte[blob] to store it in db
-                    image_byte=getBytes(bitmap);
+                ImageView imageView = (ImageView) findViewById(R.id.editor_item_image_view);
+                imageView.setImageBitmap(bitmap);
+                //convert the bitmap image to arrayByte[blob] to store it in db
+                image_byte = getBytes(bitmap);
 
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-
-       }//End of if
+        }//End of if
 
     }//End of onActionResult() Method
 
@@ -143,13 +142,13 @@ public class EditorActivity extends AppCompatActivity implements
         mQuantityEditText = (EditText) findViewById(R.id.item_quantity);
         mPriceEditText = (EditText) findViewById(R.id.item_price);
         mSupplierEditText = (EditText) findViewById(R.id.item_supplier);
-        mEditor_Img_Button=(Button)findViewById(R.id.editor_item_image_button);
-        mEditor_item_Img_view=(ImageView)findViewById(R.id.editor_item_image_view);
-        mIncrease_button=(Button)findViewById(R.id.button_increase);
-        mDecrease_button=(Button)findViewById(R.id.button_decrease);
-        mCompose=(Button)findViewById(R.id.compose);
-        mExtra_Item=(EditText)findViewById(R.id.Extra_item);
-        mSupplier_Email=(EditText)findViewById(R.id.supplier_email);
+        mEditor_Img_Button = (Button) findViewById(R.id.editor_item_image_button);
+        mEditor_item_Img_view = (ImageView) findViewById(R.id.editor_item_image_view);
+        mIncrease_button = (Button) findViewById(R.id.button_increase);
+        mDecrease_button = (Button) findViewById(R.id.button_decrease);
+        mCompose = (Button) findViewById(R.id.compose);
+        mExtra_Item = (EditText) findViewById(R.id.Extra_item);
+        mSupplier_Email = (EditText) findViewById(R.id.supplier_email);
 
 
         /** Setup OnTouchListeners on all the input fields, so we can determine if the user
@@ -171,18 +170,18 @@ public class EditorActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 //This code for solve mistake if i need the path of the image
-                if (Build.VERSION.SDK_INT <19){
+                if (Build.VERSION.SDK_INT < 19) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_picture)),GALLERY_INTENT_CALLED);
+                    startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_picture)), GALLERY_INTENT_CALLED);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     intent.setType("image/*");
                     startActivityForResult(intent, GALLERY_KITKAT_INTENT_CALLED);
                 }
-                }
+            }
 
         });
 
@@ -190,21 +189,21 @@ public class EditorActivity extends AppCompatActivity implements
         mIncrease_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentQuantity=mQuantityEditText.getText().toString();
+                String currentQuantity = mQuantityEditText.getText().toString();
                 //get the value in the EditorText of current_quantity if it's empty make it one
-                if(currentQuantity.isEmpty()){
+                if (currentQuantity.isEmpty()) {
                     mQuantityEditText.setText("1");
-                }else {//if not empty
+                } else {//if not empty
 
-                    int quantityInt=Integer.parseInt(currentQuantity);
+                    int quantityInt = Integer.parseInt(currentQuantity);
 
-                   if(quantityInt<0){//quantity is negative
-                       mQuantityEditText.setText("1");
-                   }else {
-                       ++quantityInt;
-                       String quantityString=Integer.toString(quantityInt);
-                       mQuantityEditText.setText(quantityString);
-                   }
+                    if (quantityInt < 0) {//quantity is negative
+                        mQuantityEditText.setText("1");
+                    } else {
+                        ++quantityInt;
+                        String quantityString = Integer.toString(quantityInt);
+                        mQuantityEditText.setText(quantityString);
+                    }
 
                 }
 
@@ -214,21 +213,21 @@ public class EditorActivity extends AppCompatActivity implements
         mDecrease_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentQuantity=mQuantityEditText.getText().toString();
+                String currentQuantity = mQuantityEditText.getText().toString();
                 //get the value in the EditorText of current_quantity if it's empty make it one
-                if(currentQuantity.isEmpty()){
+                if (currentQuantity.isEmpty()) {
                     mQuantityEditText.setText("0");
-                }else {//if not empty
+                } else {//if not empty
 
-                    int quantityInt=Integer.parseInt(currentQuantity);
+                    int quantityInt = Integer.parseInt(currentQuantity);
 
-                   if(quantityInt<=0){//quantity is negative
-                       mQuantityEditText.setText("0");
-                   } else {
-                       --quantityInt;
-                       String quantityString=Integer.toString(quantityInt);
-                       mQuantityEditText.setText(quantityString);
-                   }
+                    if (quantityInt <= 0) {//quantity is negative
+                        mQuantityEditText.setText("0");
+                    } else {
+                        --quantityInt;
+                        String quantityString = Integer.toString(quantityInt);
+                        mQuantityEditText.setText(quantityString);
+                    }
 
                 }
 
@@ -236,44 +235,39 @@ public class EditorActivity extends AppCompatActivity implements
         });
 
        /*send Email intent to supplier to order more item */
-       mCompose.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent=new Intent(Intent.ACTION_SEND);
-               intent.setType("text/plain");
-               String Email=mSupplier_Email.getText().toString();
-               String Extra=mExtra_Item.getText().toString();
-              if(Email.isEmpty()){
-                 Toast.makeText(EditorActivity.this,getString(R.string.Email_validation),Toast.LENGTH_LONG).show();
-                  return;
-              }
-              if(Extra.isEmpty()){
-                 Toast.makeText(EditorActivity.this,getString(R.string.Extra_validation),Toast.LENGTH_LONG).show();
-                  return;
-              }
-              if(mNameEditText.getText().toString().isEmpty()){
-                  mNameEditText.setText("your product");
-              }
+        mCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String Email = mSupplier_Email.getText().toString();
+                String Extra = mExtra_Item.getText().toString();
+                if (Email.isEmpty()) {
+                    Toast.makeText(EditorActivity.this, getString(R.string.Email_validation), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (Extra.isEmpty()) {
+                    Toast.makeText(EditorActivity.this, getString(R.string.Extra_validation), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (mNameEditText.getText().toString().isEmpty()) {
+                    mNameEditText.setText("your product");
+                }
 
-               intent.putExtra(Intent.EXTRA_EMAIL,Email);
+                intent.putExtra(Intent.EXTRA_EMAIL, Email);
 
-               intent.putExtra(Intent.EXTRA_SUBJECT,"order more from "+mNameEditText.getText());
+                intent.putExtra(Intent.EXTRA_SUBJECT, "order more from " + mNameEditText.getText());
 
-               intent.putExtra(Intent.EXTRA_TEXT,"I want "+Extra+" of item please");
+                intent.putExtra(Intent.EXTRA_TEXT, "I want " + Extra + " of item please");
 
-               startActivity(Intent.createChooser(intent,"Send Email"));
+                startActivity(Intent.createChooser(intent, "Send Email"));
 
 
-           }
-       });
-
+            }
+        });
 
 
     }
-
-
-
-
 
 
     //inflate the menu of EditorActivity
@@ -348,7 +342,7 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(ItemEntry.Column_Item_quantity, Quantity);
         values.put(ItemEntry.Column_Item_price, price);
         values.put(ItemEntry.Column_Item_supplier, mSupplierStringEditText);
-        values.put(ItemEntry.Column_Item_img,image_byte);
+        values.put(ItemEntry.Column_Item_img, image_byte);
 
         if (mCurrentUri == null) {
 
@@ -375,10 +369,6 @@ public class EditorActivity extends AppCompatActivity implements
             }
         }
     }
-
-
-
-
 
 
     @Override
@@ -445,14 +435,14 @@ public class EditorActivity extends AppCompatActivity implements
             int Column_Index_Price = cursor.getColumnIndex(ItemEntry.Column_Item_price);
             int Column_Index_Supplier = cursor.getColumnIndex(ItemEntry.Column_Item_supplier);
             int Column_Index_Quantity = cursor.getColumnIndex(ItemEntry.Column_Item_quantity);
-            int Column_Index_Img=cursor.getColumnIndex(ItemEntry.Column_Item_img);
+            int Column_Index_Img = cursor.getColumnIndex(ItemEntry.Column_Item_img);
 
             /**Get the cursor content as key And values for the name,quantity,price,supplier*/
             String Column_Name_String = cursor.getString(Column_Index_Name);
             String Column_Supplier_String = cursor.getString(Column_Index_Supplier);
             int Column_price = cursor.getInt(Column_Index_Price);
             int Column_Quantity = cursor.getInt(Column_Index_Quantity);
-            byte[] image=cursor.getBlob(Column_Index_Img);
+            byte[] image = cursor.getBlob(Column_Index_Img);
 
             /**Set the fields with the corresponding view*/
             mNameEditText.setText(Column_Name_String);
@@ -581,23 +571,19 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
 
-   /**Method to handle convert from bitmap to byteArray[blob] and VS*/
+    /**
+     * Method to handle convert from bitmap to byteArray[blob] and VS
+     */
 
-   public static byte[] getBytes(Bitmap bitmap) {
-       ByteArrayOutputStream stream = new ByteArrayOutputStream();
-       bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-       return stream.toByteArray();
-   }
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
     public static Bitmap getImage(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
-
-
-
-
-
-
-
 
 
 }//End of Activity

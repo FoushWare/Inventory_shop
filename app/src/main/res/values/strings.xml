@@ -33,30 +33,30 @@
     <!--Editor_update_success-->
     <string name="Editor_update_success">successful update</string>
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
-     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
 
-     <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
-     <string name="discard">Discard</string>
-     <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
-     <string name="keep_editing">Keep Editing</string>
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
     <!-- Toast message in editor when current pet was successfully deleted [CHAR LIMIT=NONE] -->
-        <string name="editor_delete_item_successful">item deleted</string>
+    <string name="editor_delete_item_successful">item deleted</string>
 
-       <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
-        <string name="editor_delete_item_failed">Error with deleting item</string>
+    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_item_failed">Error with deleting item</string>
 
-       <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
-        <string name="delete_dialog_msg">Delete this item?</string>
+    <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this item?</string>
 
-       <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
-        <string name="delete">Delete</string>
+    <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
 
-       <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
-        <string name="cancel">Cancel</string>
+    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
     <!--supplier Emai-->
     <string name="supplier_email">Supplier@gmail.com</string>
     <!--select picture-->
-   <string name="select_picture">select picture</string>
+    <string name="select_picture">select picture</string>
     <!--compose button-->
     <string name="compose_button">compose "  "</string>
     <!--Email validation for asking supplier for more of the item-->
